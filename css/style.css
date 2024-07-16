@@ -1,0 +1,12 @@
+.hideword {
+    font-size: 2rem;
+    letter-spacing: 0.5rem;
+}
+.wrongletters {
+    font-size: 1.5rem;
+    color: red;
+}
+.hangman {
+    text-align: center;
+    font-size: 2rem;
+}
