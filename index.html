@@ -9,11 +9,12 @@
 <body>
     <div class="container text-center mt-5">
         <h1 class="mb-4">Juego del Ahorcado</h1>
-        <div id="hangman" class="hangman mb-4"></div>
-        <div id="hideword" class="hideword mb-3"></div>
-        <div id="wrongletters" class="wrongletters mb-3"></div>
-        <input type="text" name="" id="letter-input" maxlength="1" class="form-control mb-3" placeholder="ingrese la letra">
-        <button id="restart-btn" class="btn btn-primary mb-3">reiniciar juego</button>
+        <div id="ahorcado" class="ahorcado mb-4"></div>
+        <div id="palabraOculta" class="palabraOculta mb-3"></div>
+        <div id="letraErrada" class="letraErrada mb-3"></div>
+        <input type="text" name="" id="letra" maxlength="1" class="form-control mb-3" placeholder="ingrese la letra">
+        <button id="adivinar" class="btn btn-primary mb-3">Adivinar</button>
+        <button id="reiniciar" class="btn btn-primary mb-3">reiniciar juego</button>
         <div id="msj" class="mt-3"></div>
     </div>
     <script src="js/game.js"></script>
