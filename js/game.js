@@ -17,11 +17,47 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function iniciarJuego() {
-    
+    palabraObtenida = words[Math.floor(Math.random() * words.length)];
+    ocultarPalabra = Array(palabraObtenida.length).fill("_");
+    letraErrada = [];
+    intentosRestantes = cantidadIntentos;
+
+    actualizarInterfaz();
+
+    document.getElementById("letra").value = "";
+    document.getElementById("letra").focus();
+    document.getElementById("adivinar").style.display = "inline-block";
+    document.getElementById("reiniciar").style.display = "none";
+    document.getElementById("msj").textContent = "";
+
 }
 
 function adivinarLetra() {
-    
+    const input = document.getElementById("letra");
+    const letra = input.value.toLowerCase();
+
+    if (letra && !letraErrada.includes(letra) && !ocultarPalabra.includes(letra)) {
+        if (palabraObtenida.includes(letra)) {
+            for (let i = 0; i < palabraObtenida.length; i++) {
+                if (palabraObtenida[i] === letra) {
+                    ocultarPalabra[i] = letra;
+                }
+            }
+        }else{
+            letraErrada.push(letra);
+            intentosRestantes--;
+        }
+        input.value = "";
+        actualizarInterfaz();
+
+        if (ocultarPalabra.join("") === palabraObtenida) {
+            document.getElementById("msj").textContent = "¡Felicidades has Ganado el Juego!";
+            gameOver();
+        }else if (intentosRestantes <= 0) {
+            document.getElementById("msj").textContent = `¡Has perdido el Juego, la palabra era "${palabraObtenida}"`;
+            gameOver();
+        }
+    }
 }
 
 function actualizarInterfaz() {
