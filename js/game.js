@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function iniciarJuego() {
-    palabraObtenida = words[Math.floor(Math.random() * words.length)];
+    palabraObtenida = palabra[Math.floor(Math.random() * palabra.length)];
     ocultarPalabra = Array(palabraObtenida.length).fill("_");
     letraErrada = [];
     intentosRestantes = cantidadIntentos;
@@ -27,7 +27,7 @@ function iniciarJuego() {
     document.getElementById("letra").value = "";
     document.getElementById("letra").focus();
     document.getElementById("adivinar").style.display = "inline-block";
-    document.getElementById("reiniciar").style.display = "none";
+    document.getElementById("reiniciar").style.display = "inline-block";
     document.getElementById("msj").textContent = "";
 
 }
@@ -63,10 +63,24 @@ function adivinarLetra() {
 function actualizarInterfaz() {
     document.getElementById("palabraOculta").textContent = ocultarPalabra.join(" ");
     document.getElementById("letraErrada").textContent = `Letras Erradas: ${letraErrada.join(", ")}`;
-    document.getElementById("ahorcado").textContent = `Intentos Restantes: ${intentosRestantes}`;
+    var intentos = document.getElementById("ahorcado");
+    var mensaje = `Intentos Restantes: ${intentosRestantes}`;
+    if (intentosRestantes >= 5) {        
+        intentos.textContent = mensaje;
+        intentos.style.color = "green";
+        
+    }else if ( (intentosRestantes === 4) || (intentosRestantes === 3 ) ) {
+        intentos.textContent = mensaje;
+        intentos.style.color = "yellowgreen";
+    }else{
+        intentos.textContent = mensaje;
+        intentos.style.color = "darkred";
+    }
+    
+    //console.log('intentos: ',bien);
 }
 
 function gameOver() {
-    document.getElementById("adivinar").style.display = "none";
+    //document.getElementById("adivinar").style.display = "none";
     document.getElementById("reiniciar").style.display = "inline-block";
 }
