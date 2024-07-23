@@ -1,9 +1,10 @@
 const palabra = ["javascript","programacion","juego","ahorcado","ganador","perdedor"];
-const cantidadIntentos = 6;
+const cantidadIntentos = 9;
 let palabraObtenida;
 let ocultarPalabra;
 let letraErrada;
 let intentosRestantes;
+let juegoFinalizado;
 
 document.addEventListener("DOMContentLoaded", () => {
     iniciarJuego();
@@ -21,8 +22,10 @@ function iniciarJuego() {
     ocultarPalabra = Array(palabraObtenida.length).fill("_");
     letraErrada = [];
     intentosRestantes = cantidadIntentos;
+    juegoFinalizado = false;
 
     actualizarInterfaz();
+    refrescarDibujo();
 
     document.getElementById("letra").value = "";
     document.getElementById("letra").focus();
@@ -33,6 +36,8 @@ function iniciarJuego() {
 }
 
 function adivinarLetra() {
+    if (juegoFinalizado) {return;}
+
     const input = document.getElementById("letra");
     const letra = input.value.toLowerCase();
 
@@ -46,6 +51,7 @@ function adivinarLetra() {
         }else{
             letraErrada.push(letra);
             intentosRestantes--;
+            actualizarDibujo();
         }
         input.value = "";
         actualizarInterfaz();
@@ -76,11 +82,23 @@ function actualizarInterfaz() {
         intentos.textContent = mensaje;
         intentos.style.color = "darkred";
     }
-    
-    //console.log('intentos: ',bien);
+}
+
+function refrescarDibujo() {
+    const partes = document.querySelectorAll('.cuerpo');
+    partes.forEach(part => part.style.display = 'none');
+}
+
+function actualizarDibujo() {
+    const partes = document.querySelectorAll('.cuerpo');
+    const mostrarPartes = cantidadIntentos - intentosRestantes;
+    for (let i = 0; i < mostrarPartes; i++) {
+        partes[i].style.display = 'block';
+    }    
 }
 
 function gameOver() {
-    //document.getElementById("adivinar").style.display = "none";
+    juegoFinalizado =  true;
+    document.getElementById("adivinar").style.display = "none";
     document.getElementById("reiniciar").style.display = "inline-block";
 }
